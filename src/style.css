@@ -48,13 +48,6 @@ p { margin: 0 0 1em; }
 }
 .eyebrow::before { content: ""; width: 22px; height: 2px; background: var(--ceu); }
 
-/* TODO visível: tudo que falta informar */
-.todo {
-  display: inline-block; font: 700 .78rem/1.4 ui-monospace, Menlo, monospace;
-  color: #7a3412; background: #fff3e8; border: 1.5px dashed #b4532a;
-  padding: .3em .6em; border-radius: 6px; margin: .3em 0;
-}
-dd.todo, p.todo { display: block; width: fit-content; }
 
 /* Botões */
 .btn {
@@ -107,6 +100,7 @@ dd.todo, p.todo { display: block; width: fit-content; }
 .topo--aberto .menu-btn span:nth-child(2) { opacity: 0; }
 .topo--aberto .menu-btn span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 .menu-btn:focus-visible { outline: 3px solid var(--cta); outline-offset: 3px; }
+
 
 @media (max-width: 859px) {
   .nav {
@@ -262,8 +256,8 @@ dd.todo, p.todo { display: block; width: fit-content; }
   content: "+"; position: absolute; right: 6px; top: 14px; font: 400 1.6rem var(--sans); color: var(--azul);
   transition: transform .25s;
 }
-.faq__lista details[open] summary::after { transform: rotate(45deg); }
-.faq__lista details p { color: var(--tinta-2); padding-right: 24px; }
+.faq__lista details[open]:not(.fechando) summary::after { transform: rotate(45deg); }
+.faq__lista details p { color: var(--tinta-2); padding: 0 24px 20px 0; margin: 0; overflow: hidden; }
 
 /* Contato */
 .contato { background: var(--tinta); color: var(--papel); padding: 80px 0; position: relative; overflow: hidden; }
@@ -276,7 +270,18 @@ dd.todo, p.todo { display: block; width: fit-content; }
 .contato h2 { color: #fff; }
 .contato em { color: var(--ceu); }
 .contato a:not(.btn) { color: #9fd0ff; }
-.contato__dados { list-style: none; padding: 0; margin: 32px 0 20px; display: grid; gap: 8px; }
+.redes { display: flex; flex-wrap: wrap; gap: 14px; margin: 28px 0 24px; }
+.contato a.rede {
+  display: inline-flex; align-items: center; gap: 14px; min-height: 64px; padding: 12px 22px 12px 16px;
+  background: #fff; color: var(--tinta); border-radius: 18px; text-decoration: none;
+  box-shadow: 0 10px 24px -14px rgba(0, 0, 0, .6); transition: transform .2s, box-shadow .2s;
+}
+.contato a.rede:hover { transform: translateY(-3px); box-shadow: 0 16px 30px -14px rgba(0, 0, 0, .7); }
+.rede svg { width: 34px; height: 34px; flex: none; }
+.rede--whats svg { color: #1f7a4d; }
+.rede span { display: grid; line-height: 1.25; }
+.rede strong { font-size: 1.05rem; }
+.rede small { font-size: .85rem; color: var(--tinta-2); }
 .aviso { font-size: .92rem; color: #c9d3df; border-top: 1px solid rgba(255, 255, 255, .15); padding-top: 16px; }
 
 /* Rodapé */
@@ -324,6 +329,15 @@ dd.todo, p.todo { display: block; width: fit-content; }
   .faq { grid-template-columns: 1fr 1.6fr; gap: 64px; }
   .grade4 { grid-template-columns: repeat(4, 1fr); }
   .secao { padding: 104px 0; }
+}
+
+/* Hero no celular: título → foto → texto e botões */
+@media (max-width: 859px) {
+  .hero__in { gap: 0; }
+  .hero__txt { display: contents; }
+  .hero__txt .eyebrow, .hero__txt h1 { order: 1; }
+  .hero__foto { order: 2; max-width: 340px; margin: 12px auto 36px; }
+  .hero__txt .lead, .hero__txt .acoes { order: 3; }
 }
 
 /* GSAP: will-change só nos alvos do parallax */

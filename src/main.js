@@ -60,3 +60,27 @@ mm.add('(prefers-reduced-motion: no-preference)', () => {
     onEnter: (els) => gsap.to(els, { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.08 }),
   })
 })
+
+// FAQ: abrir e fechar com animação de altura (sem animação se "reduzir movimento")
+const semMovimento = matchMedia('(prefers-reduced-motion: reduce)')
+document.querySelectorAll('.faq__lista details').forEach((item) => {
+  const resposta = item.querySelector('p')
+  item.querySelector('summary').addEventListener('click', (e) => {
+    if (semMovimento.matches) return
+    e.preventDefault()
+    gsap.killTweensOf(resposta)
+    if (item.open && !item.classList.contains('fechando')) {
+      item.classList.add('fechando')
+      gsap.to(resposta, {
+        height: 0, paddingBottom: 0, autoAlpha: 0, duration: 0.35, ease: 'power2.inOut',
+        onComplete: () => { item.open = false; item.classList.remove('fechando'); gsap.set(resposta, { clearProps: 'all' }) },
+      })
+    } else {
+      item.classList.remove('fechando')
+      item.open = true
+      gsap.fromTo(resposta,
+        { height: 0, paddingBottom: 0, autoAlpha: 0 },
+        { height: 'auto', paddingBottom: 20, autoAlpha: 1, duration: 0.45, ease: 'power2.out', clearProps: 'all' })
+    }
+  })
+})
