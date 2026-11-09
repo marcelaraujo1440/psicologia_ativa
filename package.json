@@ -3,8 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "blog": "node scripts/blog.mjs",
+    "dev": "npm run blog && vite",
+    "build": "npm run blog && vite build",
     "preview": "vite preview"
   },
   "devDependencies": {

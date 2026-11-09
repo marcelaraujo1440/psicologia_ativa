@@ -16,6 +16,8 @@ const links = [...topo.querySelectorAll('.nav a')]
 ScrollTrigger.create({ start: 10, end: 'max', toggleClass: { targets: topo, className: 'topo--rolado' } })
 
 links.forEach((link) => {
+  // Só links de âncora da própria página (na home); fora dela, "/#sobre" etc. não marcam nada
+  if (!link.hash || link.pathname !== location.pathname) return
   const secao = document.querySelector(link.hash)
   if (!secao) return
   ScrollTrigger.create({
@@ -38,6 +40,7 @@ document.addEventListener('keydown', (e) => e.key === 'Escape' && menu(false))
 
 // Parallax só no desktop: no celular as colunas empilham e os elementos se sobreporiam
 mm.add('(prefers-reduced-motion: no-preference) and (min-width: 860px)', () => {
+  if (!document.querySelector('.hero')) return
   // Hero: foto, copa azul e texto em velocidades diferentes
   gsap.to('.hero__foto img', { yPercent: -10, ease: 'none', scrollTrigger: scrub('.hero', 'top top') })
   gsap.to('.hero__foto', { '--py': '90px', ease: 'none', scrollTrigger: scrub('.hero', 'top top') })
@@ -49,15 +52,16 @@ mm.add('(prefers-reduced-motion: no-preference) and (min-width: 860px)', () => {
 
 mm.add('(prefers-reduced-motion: no-preference)', () => {
   // Contato: forma azul ao fundo (não sobrepõe conteúdo)
-  gsap.fromTo('.contato', { '--py': '-60px' }, { '--py': '80px', ease: 'none', scrollTrigger: scrub('.contato') })
+  if (document.querySelector('.contato')) gsap.fromTo('.contato', { '--py': '-60px' }, { '--py': '80px', ease: 'none', scrollTrigger: scrub('.contato') })
 
   // Entradas: títulos e cartões sobem em sequência ao aparecer
-  const alvos = '.secao h2, .revela, .cred, .infos > div, .preparo li, .faq__lista details'
-  gsap.set(alvos, { autoAlpha: 0, y: 32 })
+  const alvos = '.secao h2, .revela, .cred, .infos > div, .preparo li, .faq__lista details, .post-card, .autor'
+  gsap.set(alvos, { autoAlpha: 0, y: 18 })
   ScrollTrigger.batch(alvos, {
-    start: 'top 88%',
+    start: 'top 96%',
+    interval: 0.05,
     once: true,
-    onEnter: (els) => gsap.to(els, { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.08 }),
+    onEnter: (els) => gsap.to(els, { autoAlpha: 1, y: 0, duration: 0.45, ease: 'power2.out', stagger: 0.04, overwrite: true }),
   })
 })
 
@@ -83,4 +87,41 @@ document.querySelectorAll('.faq__lista details').forEach((item) => {
         { height: 'auto', paddingBottom: 20, autoAlpha: 1, duration: 0.45, ease: 'power2.out', clearProps: 'all' })
     }
   })
+})
+
+// Blog: busca e filtro por categoria na listagem
+const posts = [...document.querySelectorAll('.posts .post-card')]
+const busca = document.querySelector('#busca')
+if (busca) {
+  const filtros = [...document.querySelectorAll('.filtro')]
+  const vazio = document.querySelector('.sem-resultado')
+  let categoria = ''
+  const aplicar = () => {
+    const termo = busca.value.trim().toLowerCase()
+    let visiveis = 0
+    posts.forEach((p) => {
+      const ok = (!categoria || p.dataset.categoria === categoria) && p.dataset.busca.includes(termo)
+      p.hidden = !ok
+      if (ok) visiveis++
+    })
+    vazio.hidden = visiveis > 0
+  }
+  busca.addEventListener('input', aplicar)
+  filtros.forEach((f) => f.addEventListener('click', () => {
+    categoria = f.dataset.cat
+    filtros.forEach((x) => x.setAttribute('aria-pressed', x === f))
+    aplicar()
+  }))
+}
+
+// Artigo: copiar link
+document.querySelector('.copiar')?.addEventListener('click', async (e) => {
+  const botao = e.currentTarget
+  try {
+    await navigator.clipboard.writeText(botao.dataset.url)
+    botao.textContent = 'Link copiado!'
+  } catch {
+    botao.textContent = 'Não foi possível copiar'
+  }
+  setTimeout(() => { botao.textContent = 'Copiar link' }, 2000)
 })
