@@ -5,7 +5,7 @@
 ## Identificação
 - **Nome:** Benedito Ferreira dos Santos Júnior (prefere ser chamado de **Junior**)
 - **Título no cabeçalho do site:** Psicólogo
-- **CRP:** CRP-08/4980
+- **CRP:** CRP-08/49809
 - **Instagram:** @_psicopedagogia_ativa
 - **Modalidade:** On-line ou presencial
 - **Público atendido:** adolescentes e adultos
@@ -19,7 +19,7 @@
 - TODO: link do Instagram completo e outras redes, se houver
 
 ## Formações (citar no site)
-- **Psicologia** (psicólogo clínico, CRP-08/4980): UNIFATEC, Curitiba/PR. TODO: ano de conclusão
+- **Psicologia** (psicólogo clínico, CRP-08/49809): UNIFATEC, Curitiba/PR. TODO: ano de conclusão
 - **Psicopedagogia:** Uninter, Curitiba/PR. TODO: ano de conclusão, grau (especialização/pós)
 - **Psicanálise** (aparece no perfil como "Psicanalista"): ABRAFP, São Paulo/SP (Associação Brasileira de Filosofia e Psicanálise). TODO: ano de conclusão
 - **Ciências e Matemática:** Faculdade Hebraica, São Paulo/SP (citadas no slide "sobre mim"). TODO: ano de conclusão, grau (licenciatura/bacharelado) e se são dois cursos ou um só
