@@ -19,8 +19,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&display=swap" rel="stylesheet" />
-  <script type="module" crossorigin src="/assets/main-DTkir4v_.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/style-C6Jgx-CH.css">
+  <script>/* aplica o tema antes de pintar (evita piscar claro) */try{document.documentElement.dataset.theme=localStorage.tema||'light'}catch(e){}</script>
+  <script type="module" crossorigin src="/assets/prefs-sZecp61x.js"></script>
+  <script type="module" crossorigin src="/assets/main-B3XiBoVY.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/prefs-Cz5v2Izw.css">
 </head>
 <body>
   <!-- Arquivo gerado por scripts/blog.mjs: edite content/blog/, não este arquivo. -->
@@ -29,7 +31,7 @@
     <div class="wrap topo__in">
       <a class="marca" href="/#inicio" aria-label="Início: Junior, psicólogo">
         <img src="/img/arvore.png" alt="" width="40" height="40" />
-        <span><strong>Junior</strong><small>Psicólogo · CRP-08/49809</small></span>
+        <span><strong>Junior</strong><small>Psicólogo<span translate="no">CRP-08/49809</span></small></span>
       </a>
       <nav aria-label="Seções">
         <ul class="nav" id="menu">
@@ -38,6 +40,8 @@
           <li><a href="/#sobre">Sobre</a></li>
           <li><a href="/blog/" aria-current="page">Blog</a></li>
           <li><a href="/#duvidas">Dúvidas</a></li>
+          <li class="prefs" translate="no"><button class="pref" type="button" data-lang lang="en" aria-label="Read in English">EN</button>
+          <button class="pref" type="button" data-tema aria-pressed="false" aria-label="Modo escuro"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button></li>
         </ul>
       </nav>
       <a class="btn btn--sm" href="/#contato">Agendar</a>

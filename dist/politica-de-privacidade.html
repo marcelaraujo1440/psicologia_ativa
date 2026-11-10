@@ -10,16 +10,20 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" crossorigin href="/assets/style-C6Jgx-CH.css">
+  <script>/* aplica o tema antes de pintar (evita piscar claro) */try{document.documentElement.dataset.theme=localStorage.tema||'light'}catch(e){}</script>
+  <script type="module" crossorigin src="/assets/prefs-sZecp61x.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/prefs-Cz5v2Izw.css">
 </head>
 <body>
   <header class="topo">
     <div class="wrap topo__in">
       <a class="marca" href="/" aria-label="Voltar ao início">
         <img src="/img/arvore.png" alt="" width="40" height="40" />
-        <span><strong>Junior</strong><small>Psicólogo · CRP-08/49809</small></span>
+        <span><strong>Junior</strong><small>Psicólogo<span translate="no">CRP-08/49809</span></small></span>
       </a>
       <a class="link" href="/">← Voltar ao site</a>
+      <div class="prefs" translate="no"><button class="pref" type="button" data-lang lang="en" aria-label="Read in English">EN</button>
+          <button class="pref" type="button" data-tema aria-pressed="false" aria-label="Modo escuro"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button></div>
     </div>
   </header>
 
@@ -36,7 +40,7 @@
 
     <h2>2. Quais dados são coletados</h2>
     <ul>
-      <li><strong>Pelo site:</strong> este site não tem formulários, não usa cookies próprios e não utiliza ferramentas de análise ou publicidade. <!-- TODO: atualizar se for adicionado Google Analytics, Meta Pixel ou similar. --></li>
+      <li><strong>Pelo site:</strong> este site não tem formulários, não utiliza ferramentas de análise ou publicidade. A escolha de modo escuro fica salva apenas no seu navegador. Se você clicar em "EN", a página é traduzida pelo Google Tradutor, que grava um cookie (googtrans) com o idioma escolhido e recebe o texto da página e dados técnicos do seu acesso. <!-- TODO: atualizar se for adicionado Google Analytics, Meta Pixel ou similar. --></li>
       <li><strong>Serviços de terceiros:</strong> ao carregar as páginas, o serviço de hospedagem (Vercel) e o Google Fonts (fontes do site) podem registrar dados técnicos, como endereço IP e navegador.</li>
       <li><strong>Contato:</strong> ao chamar pelo WhatsApp ou telefone, são tratados seu nome, número de telefone e o conteúdo das mensagens.</li>
       <li><strong>Atendimento:</strong> durante o processo terapêutico, são produzidas informações sobre sua saúde, que a LGPD classifica como <em>dados pessoais sensíveis</em>.</li>
