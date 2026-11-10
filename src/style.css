@@ -44,10 +44,6 @@
 .pref svg { width: 18px; height: 18px; fill: currentColor; }
 @media (max-width: 859px) { .nav .prefs { padding-top: 14px; } }
 
-/* Google Tradutor: esconde a barra e o balão que ele injeta no topo */
-body { top: 0 !important; }
-iframe.skiptranslate, .goog-te-banner-frame, #goog-gt-tt, .goog-te-balloon-frame { display: none !important; }
-
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 84px; -webkit-text-size-adjust: 100%; }
 body {

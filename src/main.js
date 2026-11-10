@@ -1,6 +1,6 @@
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import './prefs.js'
+import { t } from './prefs.js'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -33,7 +33,7 @@ links.forEach((link) => {
 const menu = (aberto) => {
   topo.classList.toggle('topo--aberto', aberto)
   menuBtn.setAttribute('aria-expanded', aberto)
-  menuBtn.setAttribute('aria-label', aberto ? 'Fechar menu' : 'Abrir menu')
+  menuBtn.setAttribute('aria-label', t(aberto ? 'Fechar menu' : 'Abrir menu'))
 }
 menuBtn.addEventListener('click', () => menu(!topo.classList.contains('topo--aberto')))
 links.forEach((l) => l.addEventListener('click', () => menu(false)))
@@ -120,9 +120,9 @@ document.querySelector('.copiar')?.addEventListener('click', async (e) => {
   const botao = e.currentTarget
   try {
     await navigator.clipboard.writeText(botao.dataset.url)
-    botao.textContent = 'Link copiado!'
+    botao.textContent = t('Link copiado!')
   } catch {
-    botao.textContent = 'Não foi possível copiar'
+    botao.textContent = t('Não foi possível copiar')
   }
-  setTimeout(() => { botao.textContent = 'Copiar link' }, 2000)
+  setTimeout(() => { botao.textContent = t('Copiar link') }, 2000)
 })
