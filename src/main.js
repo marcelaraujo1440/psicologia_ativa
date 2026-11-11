@@ -1,8 +1,12 @@
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { t } from './prefs.js'
+import { injectSpeedInsights } from '@vercel/speed-insights'
 
 gsap.registerPlugin(ScrollTrigger)
+
+// Initialize Vercel Speed Insights
+injectSpeedInsights()
 
 // Tudo aqui é decorativo: sem JS ou com "reduzir movimento", o conteúdo aparece normalmente.
 const scrub = (trigger, start = 'top bottom', end = 'bottom top') =>
