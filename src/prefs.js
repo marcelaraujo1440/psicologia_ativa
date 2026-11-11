@@ -4,13 +4,36 @@ import en from './en.json'
 const raiz = document.documentElement
 
 // Tema: o <head> já aplicou a preferência salva (padrão: claro) antes de pintar; aqui só alterna
+// Animação adaptada do Theme Toggle do EaseUI (MIT): o novo tema surge num círculo que cresce a partir do botão.
 const temaBtn = document.querySelector('[data-tema]')
-const marcarTema = () => temaBtn.setAttribute('aria-pressed', raiz.dataset.theme === 'dark')
+const icone = temaBtn.querySelector('svg')
+const LUA = '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>'
+const SOL = '<circle cx="12" cy="12" r="5"/><g>' + [0, 45, 90, 135, 180, 225, 270, 315]
+  .map((g) => `<rect x="11" y="1" width="2" height="3.5" rx="1" transform="rotate(${g} 12 12)"/>`).join('') + '</g>'
+const semMovimento = matchMedia('(prefers-reduced-motion: reduce)')
+const marcarTema = () => {
+  const escuro = raiz.dataset.theme === 'dark'
+  temaBtn.setAttribute('aria-pressed', escuro)
+  icone.innerHTML = escuro ? SOL : LUA // no escuro, o ícone mostra para onde o clique leva
+}
 marcarTema()
-temaBtn.addEventListener('click', () => {
+const trocarTema = () => {
   raiz.dataset.theme = raiz.dataset.theme === 'dark' ? 'light' : 'dark'
   try { localStorage.tema = raiz.dataset.theme } catch {}
   marcarTema()
+}
+temaBtn.addEventListener('click', () => {
+  if (semMovimento.matches || !document.startViewTransition) return trocarTema()
+  const r = temaBtn.getBoundingClientRect()
+  const x = r.left + r.width / 2, y = r.top + r.height / 2
+  raiz.style.setProperty('--reveal-x', `${x}px`)
+  raiz.style.setProperty('--reveal-y', `${y}px`)
+  raiz.style.setProperty('--reveal-r', `${Math.ceil(Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y)))}px`)
+  raiz.dataset.themeReveal = ''
+  document.startViewTransition(trocarTema).finished.finally(() => {
+    delete raiz.dataset.themeReveal
+    icone.animate([{ opacity: 0, transform: 'scale(.6)' }, { opacity: 1, transform: 'scale(1)' }], { duration: 150, easing: 'cubic-bezier(.23, 1, .32, 1)' })
+  })
 })
 
 // Idioma: tradução própria (src/en.json, chave = texto em PT). Troca na hora, sem recarregar nem serviço externo.

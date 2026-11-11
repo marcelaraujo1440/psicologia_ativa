@@ -43,6 +43,14 @@
 .pref:focus-visible { outline: 3px solid var(--cta); outline-offset: 3px; }
 .pref svg { width: 18px; height: 18px; fill: currentColor; }
 @media (max-width: 859px) { .nav .prefs { padding-top: 14px; } }
+/* Troca de tema: a página nova aparece num círculo que cresce do botão (View Transitions; ver prefs.js) */
+html[data-theme-reveal]::view-transition-old(root),
+html[data-theme-reveal]::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+html[data-theme-reveal]::view-transition-new(root) { animation: revelar-tema 400ms cubic-bezier(.23, 1, .32, 1); }
+@keyframes revelar-tema {
+  from { clip-path: circle(0px at var(--reveal-x) var(--reveal-y)); }
+  to { clip-path: circle(var(--reveal-r) at var(--reveal-x) var(--reveal-y)); }
+}
 
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 84px; -webkit-text-size-adjust: 100%; }
@@ -87,6 +95,25 @@ p { margin: 0 0 1em; }
   transition: background .2s, transform .2s;
 }
 .btn:hover { background: var(--cta-escuro); transform: translateY(-2px); }
+/* Shimmer: faixa de brilho atravessa o botão no hover */
+.btn { position: relative; overflow: hidden; isolation: isolate; }
+.btn::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, .35) 50%, transparent 70%);
+  transform: translateX(-110%); transition: transform 1.2s ease;
+}
+.btn:hover::after { transform: translateX(110%); }
+
+/* Spotlight: luz suave segue o cursor nos cartões (posição via --mx/--my no main.js) */
+.card, .modalidade, .cred, .post-card a { position: relative; }
+.card::before, .modalidade::before, .cred::before, .post-card a::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 1;
+  background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%), rgba(66, 166, 254, .16), transparent 70%);
+  opacity: 0; transition: opacity .3s;
+}
+@media (hover: hover) {
+  .card:hover::before, .modalidade:hover::before, .cred:hover::before, .post-card a:hover::before { opacity: 1; }
+}
 .btn--sm { min-height: 40px; padding: .5em 1.1em; font-size: .92rem; }
 .btn--claro { background: #fff; color: var(--cta-escuro); box-shadow: none; }
 .btn--claro:hover { background: var(--papel); }

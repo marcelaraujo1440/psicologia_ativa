@@ -61,12 +61,22 @@ mm.add('(prefers-reduced-motion: no-preference)', () => {
 
   // Entradas: títulos e cartões sobem em sequência ao aparecer
   const alvos = '.secao h2, .revela, .cred, .infos > div, .preparo li, .faq__lista details, .post-card, .autor'
-  gsap.set(alvos, { autoAlpha: 0, y: 18 })
+  // Blur fade: além de subir, o elemento sai do desfoque
+  gsap.set(alvos, { autoAlpha: 0, y: 18, filter: 'blur(3px)' })
   ScrollTrigger.batch(alvos, {
     start: 'top 96%',
     interval: 0.05,
     once: true,
-    onEnter: (els) => gsap.to(els, { autoAlpha: 1, y: 0, duration: 0.45, ease: 'power2.out', stagger: 0.04, overwrite: true }),
+    onEnter: (els) => gsap.to(els, { autoAlpha: 1, y: 0, filter: 'blur(0px)', duration: 0.6, ease: 'power2.out', stagger: 0.05, overwrite: true, clearProps: 'filter' }),
+  })
+
+  // Spotlight: guarda a posição do cursor no cartão para o gradiente do CSS
+  document.querySelectorAll('.card, .modalidade, .cred, .post-card a').forEach((el) => {
+    el.addEventListener('pointermove', (e) => {
+      const r = el.getBoundingClientRect()
+      el.style.setProperty('--mx', `${e.clientX - r.left}px`)
+      el.style.setProperty('--my', `${e.clientY - r.top}px`)
+    })
   })
 })
 
